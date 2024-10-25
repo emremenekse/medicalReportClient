@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-5">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="personCheck"
+          (change)="onFilterChange('PERSON', $event)">
+        <label class="form-check-label" for="personCheck">Person</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="organizationCheck"
+          (change)="onFilterChange('ORGANIZATION', $event)">
+        <label class="form-check-label" for="organizationCheck">Organization</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="groupCheck"
+          (change)="onFilterChange('GROUP', $event)">
+        <label class="form-check-label" for="groupCheck">Group</label>
+      </div>
+      
+    </div>
+    <div class="col-lg-9 col-md-8 col-sm-7">
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               placeholder="Search..."
+               [(ngModel)]="searchQuery" 
+               name="search">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="onSearch(searchQuery)">Search</button>
+        </div>
+      </div>
+      <div *ngIf="filteredSearchResults.length">
+        <ul>
+          <li *ngFor="let text  of filteredSearchResults">{{ text  }}</li>
+        </ul>
+      </div>
+    </div>
+    
+    
+  </div>
+</div>
+
+
+<div class="container mt-4">
+  <h3>Modified Documents</h3>
+
+  <div *ngIf="modifiedDocumentResults && modifiedDocumentResults.length; else noResults">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let item of modifiedDocumentResults">
+        {{ item }}
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noResults>
+    <div class="alert alert-info mt-3" role="alert">
+      No modified documents found.
+    </div>
+  </ng-template>
+</div>
